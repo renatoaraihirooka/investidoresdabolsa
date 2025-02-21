@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagem em Loop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #message {
+            font-size: 24px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">Mensagem inicial</div>
+
+    <script>
+        const messages = ["Mensagem 1", "Mensagem 2", "Mensagem 3"];
+        let index = 0;
+
+        function showMessage() {
+            document.getElementById('message').innerText = messages[index];
+            index = (index + 1) % messages.length;
+        }
+
+        setInterval(showMessage, 2000); // Muda a mensagem a cada 2 segundos
+    </script>
+</body>
+</html>
