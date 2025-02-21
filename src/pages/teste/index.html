@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotação do Dólar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        #container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        #dollar-price, #date-time {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        #dollar-price {
+            color: #4CAF50;
+        }
+        #date-time {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>Cotação do Dólar Hoje</h1>
+        <div id="dollar-price">Carregando...</div>
+        <div id="date-time"></div>
+    </div>
+
+    <script>
+        async function fetchDollarPrice() {
+            const url = 'https://economia.awesomeapi.com.br/json/last/USD-BRL';
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                console.log('Dados recebidos da API:', data);
+
+                const dollarPrice = parseFloat(data.USDBRL.bid).toFixed(2);
+
+                document.getElementById('dollar-price').innerText = `R$${dollarPrice}`;
+            } catch (error) {
+                console.error('Erro ao buscar a cotação do dólar:', error);
+                document.getElementById('dollar-price').innerText = 'Erro ao carregar a cotação do dólar.';
+            }
+        }
+
+        function displayDateTime() {
+            const now = new Date();
+            const dateTimeString = now.toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' });
+            document.getElementById('date-time').innerText = `${dateTimeString}`;
+        }
+
+        fetchDollarPrice();
+        displayDateTime();
+    </script>
+</body>
+</html>
